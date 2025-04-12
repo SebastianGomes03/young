@@ -40,7 +40,10 @@ class HomeScreen extends StatelessWidget {
                   label: 'Cuestionario M-CHAT',
                   color: 'primary', // Primary color
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, Routes.register);
+                    Navigator.pushReplacementNamed(
+                      context,
+                      Routes.mchatregister,
+                    );
                   },
                 ),
                 const SizedBox(height: 20),
@@ -49,16 +52,19 @@ class HomeScreen extends StatelessWidget {
                   label: 'Haizea-Llevant',
                   color: 'primary', // Primary color
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, Routes.register);
+                    Navigator.pushReplacementNamed(
+                      context,
+                      Routes.mchatregister,
+                    );
                   },
                 ),
                 const SizedBox(height: 20),
                 Button(
                   type: 'menu',
                   label: 'Salir',
-                    color: 'primary', // Primary color
-                    onPressed: () {
-                      exit(0);
+                  color: 'primary', // Primary color
+                  onPressed: () {
+                    exit(0);
                   },
                 ),
               ],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:young/screens/amnesic_data.dart';
-import 'package:young/screens/register.dart';
-import 'package:young/screens/results.dart';
+import 'package:young/screens/MCHAT/MCHATamnesic_data.dart';
+import 'package:young/screens/MCHAT/MCHATregister.dart';
+import 'package:young/screens/MCHAT/MCHATresults.dart';
 import 'package:young/utils/routes.dart';
-import 'package:young/screens/questionnaire.dart';
+import 'package:young/screens/MCHAT/MCHATquestionnaire.dart';
 import 'screens/home.dart';
 import 'utils/colors.dart';
 
@@ -25,10 +25,10 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         Routes.home: (context) => const HomeScreen(),
-        Routes.register: (context) => RegisterScreen(),
-        Routes.amnesicData: (context) => AmnesicDataScreen(),
-        Routes.questionnaire: (context) => QuestionnaireScreen(),
-        Routes.results: (context) => ResultsScreen(),
+        Routes.mchatregister: (context) => MCHATRegisterScreen(),
+        Routes.mchatamnesicData: (context) => MCHATAmnesicDataScreen(),
+        Routes.mchatquestionnaire: (context) => MCHATQuestionnaireScreen(),
+        Routes.mchatresults: (context) => MCHATResultsScreen(),
       },
       initialRoute: Routes.home,
     );

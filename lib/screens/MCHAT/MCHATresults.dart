@@ -4,15 +4,15 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
-import '../utils/colors.dart';
-import '../widgets/button.dart';
+import '../../utils/colors.dart';
+import '../../widgets/button.dart';
 
-class ResultsScreen extends StatefulWidget {
+class MCHATResultsScreen extends StatefulWidget {
   @override
-  _ResultsScreenState createState() => _ResultsScreenState();
+  _MCHATResultsScreenState createState() => _MCHATResultsScreenState();
 }
 
-class _ResultsScreenState extends State<ResultsScreen> {
+class _MCHATResultsScreenState extends State<MCHATResultsScreen> {
   bool isHovered = false;
 
   @override

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:young/utils/routes.dart';
 import 'package:young/widgets/input.dart';
 import 'package:young/widgets/selection_input.dart';
 import 'package:young/widgets/button.dart';
 import 'package:young/widgets/phone_input.dart';
-import '../utils/colors.dart';
 
-class RegisterScreen extends StatefulWidget {
+class HAIZEALLEVANT_RegisterScreen extends StatefulWidget {
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _HAIZEALLEVANT_RegisterScreenState createState() => _HAIZEALLEVANT_RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _HAIZEALLEVANT_RegisterScreenState extends State<HAIZEALLEVANT_RegisterScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController escolaridadController = TextEditingController();
@@ -22,7 +22,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-      // Retrieve arguments
+    // Retrieve arguments
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
@@ -31,14 +31,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.text = args['name'] ?? '';
       if (dobController.text.isEmpty) {
         dobController.text = args['dob'] ?? ''; // Update dobController
-      }    
+      }
       gender = args['gender'] ?? ''; // Initialize gender
       escolaridadController.text = args['escolaridad'] ?? '';
       direccionController.text = args['direccion'] ?? '';
       phoneNumber = args['telefono'] ?? ''; // Initialize phone number
       representanteController.text = args['representante'] ?? '';
     }
-    
+
     return Scaffold(
       body: Stack(
         children: [
@@ -89,7 +89,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           label: 'Fecha de Nacimiento',
                           controller: dobController,
                           initialValue: dobController.text,
-                          
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -206,7 +205,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               );
                               Navigator.pushNamed(
                                 context,
-                                '/amnesic_data',
+                                Routes.mchatamnesicData,
                                 arguments: {
                                   'name': nameController.text,
                                   'dob': dobController.text,

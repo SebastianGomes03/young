@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:young/utils/routes.dart';
 import 'package:young/widgets/m_chart.dart';
-import '../utils/colors.dart';
-import '../widgets/button.dart';
+import '../../utils/colors.dart';
+import '../../widgets/button.dart';
 
-class QuestionnaireScreen extends StatelessWidget {
+class MCHATQuestionnaireScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Retrieve arguments
@@ -74,7 +74,7 @@ class QuestionnaireScreen extends StatelessWidget {
 
                   Navigator.pushReplacementNamed(
                     context,
-                    Routes.results,
+                    Routes.mchatresults,
                     arguments: {
                       ...args,
                       'patientName': patientName,

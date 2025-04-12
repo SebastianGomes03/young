@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:young/utils/routes.dart';
 import 'package:young/widgets/input.dart';
 import 'package:young/widgets/button.dart';
-import '../utils/colors.dart';
 import 'package:flutter/services.dart';
 
-class AmnesicDataScreen extends StatefulWidget {
+class HAIZEALLEVANT_mnesicDataScreen extends StatefulWidget {
   @override
-  _AmnesicDataScreenState createState() => _AmnesicDataScreenState();
+  _HAIZEALLEVANT_mnesicDataScreenState createState() => _HAIZEALLEVANT_mnesicDataScreenState();
 }
 
-class _AmnesicDataScreenState extends State<AmnesicDataScreen> {
+class _HAIZEALLEVANT_mnesicDataScreenState extends State<HAIZEALLEVANT_mnesicDataScreen> {
   final TextEditingController perinatalController = TextEditingController();
   final TextEditingController partoController = TextEditingController();
   final TextEditingController alturaController = TextEditingController();
@@ -213,7 +213,7 @@ class _AmnesicDataScreenState extends State<AmnesicDataScreen> {
                               // Add new inputs to the arguments and navigate to the test screen
                               Navigator.pushNamed(
                                 context,
-                                '/questionnaire',
+                                Routes.mchatquestionnaire,
                                 arguments: {
                                   ...args, // Maintain previous context
                                   'perinatal': perinatalController.text,
