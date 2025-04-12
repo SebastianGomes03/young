@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:young/widgets/input.dart';
 import 'package:young/widgets/button.dart';
 import '../utils/colors.dart';
+import 'package:flutter/services.dart';
 
 class AmnesicDataScreen extends StatefulWidget {
   @override
@@ -88,6 +89,10 @@ class _AmnesicDataScreenState extends State<AmnesicDataScreen> {
                           type: 'number',
                           label: 'Altura al nacer (cm)',
                           controller: alturaController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter
+                                .digitsOnly, // Restrict to numbers only
+                          ],
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -98,6 +103,10 @@ class _AmnesicDataScreenState extends State<AmnesicDataScreen> {
                           type: 'number',
                           label: 'Peso al nacer (kg)',
                           controller: pesoController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter
+                                .digitsOnly, // Restrict to numbers only
+                          ],
                         ),
                       ),
                     ],
@@ -169,10 +178,7 @@ class _AmnesicDataScreenState extends State<AmnesicDataScreen> {
                               Navigator.pushReplacementNamed(
                                 context,
                                 '/register',
-                                arguments:{ 
-                                  ...args,
-                                  'dob': args['dob'],
-                                 } 
+                                arguments: {...args, 'dob': args['dob']},
                               );
                             },
                           ),

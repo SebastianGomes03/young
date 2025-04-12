@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import for input formatters
 import '../utils/colors.dart'; // Import colors.dart for consistent styling
 
 class PhoneInput extends StatefulWidget {
@@ -30,7 +31,6 @@ class _PhoneInputState extends State<PhoneInput> {
       selectedPrefix = '0416'; // Default prefix
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +83,10 @@ class _PhoneInputState extends State<PhoneInput> {
             child: TextField(
               controller: phoneController,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter
+                    .digitsOnly, // Restrict to numbers only
+              ],
               maxLength: 7, // Limit input to 7 digits
               style: TextStyle(color: colorsBlack, fontSize: 16.0),
               decoration: InputDecoration(

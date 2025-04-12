@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
 import '../utils/colors.dart';
 import '../widgets/button.dart';
 
@@ -113,7 +114,26 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       iconSize: 80,
                       onPressed: () async {
                         await _generateAndSavePdf(
-                            patientName, age, score, riskLevel, answers);
+                          args['patientName'] ?? 'Unknown',
+                          args['dob'] ?? 'Unknown',
+                          args['age'] ?? 0,
+                          args['gender'] ?? 'Unknown',
+                          args['escolaridad'] ?? 'Unknown',
+                          args['direccion'] ?? 'Unknown',
+                          args['telefono'] ?? 'Unknown',
+                          args['representante'] ?? 'Unknown',
+                          args['perinatal'] ?? 'Unknown',
+                          args['parto'] ?? 'Unknown',
+                          args['altura'] ?? 'Unknown',
+                          args['peso'] ?? 'Unknown',
+                          args['psicomotor'] ?? 'Unknown',
+                          args['lenguaje'] ?? 'Unknown',
+                          args['esfintario'] ?? 'Unknown',
+                          args['enfermedades'] ?? 'Unknown',
+                          args['familiares'] ?? 'Unknown',
+                          args['score'] ?? 0,
+                          args['riskLevel'] ?? 'BAJO',
+                        );
                       },
                     ),
                   ),
@@ -149,58 +169,156 @@ class _ResultsScreenState extends State<ResultsScreen> {
 
   Future<void> _generateAndSavePdf(
     String patientName,
+    String dob,
     int age,
+    String gender,
+    String escolaridad,
+    String direccion,
+    String telefono,
+    String representante,
+    String perinatal,
+    String parto,
+    String altura,
+    String peso,
+    String psicomotor,
+    String lenguaje,
+    String esfintario,
+    String enfermedades,
+    String familiares,
     int score,
     String riskLevel,
-    List<String> answers,
   ) async {
     final pdf = pw.Document();
 
     pdf.addPage(
       pw.Page(
+        pageFormat: PdfPageFormat.a4,
         build:
             (pw.Context context) => pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
+                // Logo and Header
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Image(
+                      pw.MemoryImage(File('assets/Logo.png').readAsBytesSync()),
+                      height: 50,
+                    ),
+                    pw.SizedBox(width: 16),
+                  ],
+                ),
+                pw.Center(
+                  child: pw.Text(
+                    'Consultorio Psicológico Integral\nGonzález Calzadilla',
+                    style: pw.TextStyle(
+                      fontSize: 18,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                    textAlign: pw.TextAlign.center,
+                  ),
+                ),
+                pw.SizedBox(height: 16),
+                pw.Center(
+                  child: pw.Text(
+                    'Informe Resultados Screening Riesgo de TEA',
+                    style: pw.TextStyle(
+                      fontSize: 16,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                    textAlign: pw.TextAlign.center,
+                  ),
+                ),
+                pw.SizedBox(height: 16),
+                pw.Align(
+                  alignment: pw.Alignment.centerRight,
+                  child: pw.Text(
+                    'Fecha: ${DateFormat('dd-MM-yyyy').format(DateTime.now())}',
+                    style: pw.TextStyle(
+                      fontSize: 12,
+                      fontWeight: pw.FontWeight.normal,
+                    ),
+                  ),
+                ),
+                pw.SizedBox(height: 16),
+
+                // Patient General Information
                 pw.Text(
-                  'Resultados del Cuestionario',
+                  'Datos Generales:',
                   style: pw.TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 10),
+                pw.Text('Nombre del Paciente: $patientName'),
+                pw.Text('F.N.: $dob'),
+                pw.Text('Edad: $age meses'),
+                pw.Text('Sexo: $gender'),
+                pw.Text('Escolaridad: $escolaridad'),
+                pw.Text('Teléfono: $telefono'),
+                pw.Text('Dirección: $direccion'),
+                pw.Text('Representante: $representante'),
+                pw.SizedBox(height: 16),
+
+                // Anamnesic Data
                 pw.Text(
-                  'Paciente: $patientName',
-                  style: pw.TextStyle(fontSize: 16),
-                ),
-                pw.Text('Edad: $age meses', style: pw.TextStyle(fontSize: 16)),
-                pw.Text(
-                  'Puntuación: $score',
-                  style: pw.TextStyle(fontSize: 16),
-                ),
-                pw.Text(
-                  'Nivel de Riesgo: $riskLevel',
-                  style: pw.TextStyle(fontSize: 16, color: PdfColors.teal, fontWeight: pw.FontWeight.bold),
-                ),
-                pw.SizedBox(height: 10),
-                pw.Text(
-                  'Respuestas del Cuestionario:',
+                  'Datos Anamnésicos:',
                   style: pw.TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: pw.FontWeight.bold,
                   ),
                 ),
-                pw.SizedBox(height: 5),
-                // Iterate over the answers list and add each question and answer
-                ...answers.asMap().entries.map((entry) {
-                  final int index = entry.key;
-                  final String answer = entry.value;
-                  return pw.Text(
-                    'Pregunta ${index + 1}: $answer',
-                    style: pw.TextStyle(fontSize: 16),
-                  );
-                }).toList(),
+                pw.Text(
+                  'Datos Perinatales y Post Natales Importantes: $perinatal',
+                ),
+                pw.Text('Forma de Parto: $parto'),
+                pw.Text('Midió al nacer: $altura cm'),
+                pw.Text('Pesó al nacer: $peso kg'),
+                pw.Text('Desarrollo Psicomotor: $psicomotor'),
+                pw.Text('Desarrollo del Lenguaje: $lenguaje'),
+                pw.Text('Control Esfintario: $esfintario'),
+                pw.Text('Enfermedades Padecidas: $enfermedades'),
+                pw.Text('Antecedentes Familiares: $familiares'),
+                pw.SizedBox(height: 16),
+
+                // Questionnaire Results
+                pw.Text(
+                  'Resultados del Cuestionario:',
+                  style: pw.TextStyle(
+                    fontSize: 14,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+                pw.Text('Puntuación: $score'),
+                pw.Text('Resultado: $riskLevel'),
+                pw.SizedBox(height: 16),
+
+                // Conclusion
+                pw.Text(
+                  'Conclusión:',
+                  style: pw.TextStyle(
+                    fontSize: 14,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+                pw.Text(
+                  riskLevel == 'BAJO'
+                      ? 'Presencia de Riesgo de TEA BAJO. Ninguna otra medida necesaria a menos que la vigilancia del desarrollo indique riesgo de TEA.'
+                      : riskLevel == 'MEDIO'
+                      ? 'Presencia de Riesgo de TEA MODERADO. Remita al niño para una evaluación diagnóstica.'
+                      : 'Presencia de Riesgo de TEA ALTO. Remita el caso de inmediato para evaluación diagnóstica.',
+                ),
+                pw.SizedBox(height: 16),
+
+                // Footer
+                pw.Text(
+                  'Evaluador: ____________________________',
+                  style: pw.TextStyle(fontSize: 14),
+                ),
+                pw.Text(
+                  'Sello: ________________________________',
+                  style: pw.TextStyle(fontSize: 14),
+                ),
               ],
             ),
       ),

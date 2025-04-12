@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import for input formatters
 import 'package:intl/intl.dart'; // For formatting dates
 import '../utils/colors.dart'; // Import colors.dart to access colorsBackground and colorsBlack
 
@@ -7,6 +8,8 @@ class Input extends StatelessWidget {
   final String label;
   final TextEditingController controller;
   final String initialValue; // Add initialValue parameter
+  final List<TextInputFormatter>?
+  inputFormatters; // Add inputFormatters parameter
 
   const Input({
     Key? key,
@@ -14,6 +17,7 @@ class Input extends StatelessWidget {
     required this.label,
     required this.controller,
     this.initialValue = '', // Default to an empty string
+    this.inputFormatters, // Default to null
   }) : super(key: key);
 
   @override
@@ -22,7 +26,7 @@ class Input extends StatelessWidget {
     if (type == 'dob' && controller.text.isEmpty && initialValue.isNotEmpty) {
       controller.text = initialValue;
     }
-    // Set the initial value for the controller
+
     return Container(
       decoration: BoxDecoration(
         color: colorsBackground, // Match the background color of SelectionInput
@@ -90,6 +94,7 @@ class Input extends StatelessWidget {
                 : TextField(
                   controller: controller,
                   keyboardType: TextInputType.text,
+                  inputFormatters: inputFormatters, // Pass inputFormatters here
                   style: TextStyle(color: colorsBlack, fontSize: 16.0),
                   decoration: InputDecoration(
                     labelText: label,

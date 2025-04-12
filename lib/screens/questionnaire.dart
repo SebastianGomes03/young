@@ -76,6 +76,7 @@ class QuestionnaireScreen extends StatelessWidget {
                     context,
                     Routes.results,
                     arguments: {
+                      ...args,
                       'patientName': patientName,
                       'age': age,
                       'score': score,
