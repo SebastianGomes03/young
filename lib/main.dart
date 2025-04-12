@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:young/screens/amnesic_data.dart';
 import 'package:young/screens/register.dart';
 import 'package:young/screens/results.dart';
 import 'package:young/utils/routes.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       routes: {
         Routes.home: (context) => const HomeScreen(),
         Routes.register: (context) => RegisterScreen(),
+        Routes.amnesicData: (context) => AmnesicDataScreen(),
         Routes.questionnaire: (context) => QuestionnaireScreen(),
         Routes.results: (context) => ResultsScreen(),
       },

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:young/widgets/input.dart';
 import 'package:young/widgets/selection_input.dart';
 import 'package:young/widgets/button.dart';
+import 'package:young/widgets/phone_input.dart';
 import '../utils/colors.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -13,10 +14,31 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
+  final TextEditingController escolaridadController = TextEditingController();
+  final TextEditingController direccionController = TextEditingController();
+  final TextEditingController representanteController = TextEditingController();
   String gender = '';
+  String phoneNumber = '';
 
   @override
   Widget build(BuildContext context) {
+      // Retrieve arguments
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    if (args != null) {
+      // Populate the input fields with the existing data
+      nameController.text = args['name'] ?? '';
+      if (dobController.text.isEmpty) {
+        dobController.text = args['dob'] ?? ''; // Update dobController
+      }    
+      gender = args['gender'] ?? ''; // Initialize gender
+      escolaridadController.text = args['escolaridad'] ?? '';
+      direccionController.text = args['direccion'] ?? '';
+      phoneNumber = args['telefono'] ?? ''; // Initialize phone number
+      representanteController.text = args['representante'] ?? '';
+    }
+    
     return Scaffold(
       body: Stack(
         children: [
@@ -40,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    'Introduzca los datos del paciente:',
+                    'Introduzca los datos generales del paciente:',
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -66,6 +88,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           type: 'dob',
                           label: 'Fecha de Nacimiento',
                           controller: dobController,
+                          initialValue: dobController.text,
+                          
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -73,6 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SizedBox(
                         width: 290, // Constrain the width of the input
                         child: SelectionInput(
+                          initialValue: gender,
                           onChanged: (value) {
                             setState(() {
                               gender = value;
@@ -81,6 +106,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 16),
+                  // Escolaridad input
+                  SizedBox(
+                    width: 600, // Constrain the width of the input
+                    child: Input(
+                      type: 'text',
+                      label: 'Escolaridad',
+                      controller: escolaridadController,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  // Direccion and Telefono inputs on the same line
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Direccion input
+                      SizedBox(
+                        width: 290, // Constrain the width of the input
+                        child: Input(
+                          type: 'text',
+                          label: 'Dirección',
+                          controller: direccionController,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      // Telefono input
+                      SizedBox(
+                        width: 290, // Constrain the width of the input
+                        child: PhoneInput(
+                          initialValue: phoneNumber,
+                          onChanged: (value) {
+                            setState(() {
+                              phoneNumber = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  // Representante input
+                  SizedBox(
+                    width: 600, // Constrain the width of the input
+                    child: Input(
+                      type: 'text',
+                      label: 'Representante',
+                      controller: representanteController,
+                    ),
                   ),
                   const SizedBox(height: 32),
                   // Bottom buttons in the same space as inputs
@@ -112,7 +186,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onPressed: () {
                               if (nameController.text.isEmpty ||
                                   dobController.text.isEmpty ||
-                                  gender.isEmpty) {
+                                  gender.isEmpty ||
+                                  escolaridadController.text.isEmpty ||
+                                  direccionController.text.isEmpty ||
+                                  phoneNumber.isEmpty ||
+                                  representanteController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
@@ -126,14 +204,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               final int ageInMonths = calculateAgeInMonths(
                                 dobController.text,
                               );
-
                               Navigator.pushNamed(
                                 context,
-                                '/questionnaire',
+                                '/amnesic_data',
                                 arguments: {
                                   'name': nameController.text,
+                                  'dob': dobController.text,
                                   'age': ageInMonths,
                                   'gender': gender,
+                                  'escolaridad': escolaridadController.text,
+                                  'direccion': direccionController.text,
+                                  'telefono': phoneNumber,
+                                  'representante': representanteController.text,
                                 },
                               );
                             },

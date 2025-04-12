@@ -3,15 +3,27 @@ import '../utils/colors.dart'; // Import colors.dart to access colorsBackground,
 
 class SelectionInput extends StatefulWidget {
   final ValueChanged<String> onChanged;
+  final String initialValue; // Add initialValue parameter
 
-  const SelectionInput({Key? key, required this.onChanged}) : super(key: key);
+  const SelectionInput({
+    Key? key,
+    required this.onChanged,
+    this.initialValue = '', // Default to an empty string
+  }) : super(key: key);
 
   @override
   _SelectionInputState createState() => _SelectionInputState();
-}
+  }
 
 class _SelectionInputState extends State<SelectionInput> {
-  String selectedOption = ''; // Start with no option selected
+  late String selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedOption = widget.initialValue; // Initialize with the provided value
+  }
+
 
 @override
 Widget build(BuildContext context) {

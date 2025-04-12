@@ -6,16 +6,23 @@ class Input extends StatelessWidget {
   final String type; // 'dob' or 'name'
   final String label;
   final TextEditingController controller;
+  final String initialValue; // Add initialValue parameter
 
   const Input({
     Key? key,
     required this.type,
     required this.label,
     required this.controller,
+    this.initialValue = '', // Default to an empty string
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Set the initial value for the controller
+    if (type == 'dob' && controller.text.isEmpty && initialValue.isNotEmpty) {
+      controller.text = initialValue;
+    }
+    // Set the initial value for the controller
     return Container(
       decoration: BoxDecoration(
         color: colorsBackground, // Match the background color of SelectionInput
